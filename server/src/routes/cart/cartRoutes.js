@@ -11,7 +11,7 @@ import { protect } from "../../middlewares/protect.js";
 
 const router = express.Router();
 
-router.use(protect); /* All cart routes require auth */
+router.use(protect);
 
 router.get("/", getCart);
 router.get("/count", getCartCount);

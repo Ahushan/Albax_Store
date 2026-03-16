@@ -16,17 +16,18 @@ import AdminRoutes from "@/admin/routes/AdminRoutes";
 
 const AppRoutes = () => {
   return (
-    <div className="">
+    <>
       <Routes>
+        {/* Auth Routes */}
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+
+        {/* Public Routes */}
         <Route index element={<Home />} />
         <Route path="/products" element={<Products />} />
         <Route path="/product/:productId" element={<ProductDetails />} />
 
-        {/* Auth */}
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-
-        {/* Protected user routes */}
+        {/* Protected User Routes */}
         <Route
           path="/checkout"
           element={
@@ -35,6 +36,7 @@ const AppRoutes = () => {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/cart"
           element={
@@ -43,6 +45,7 @@ const AppRoutes = () => {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/wishlist"
           element={
@@ -51,6 +54,7 @@ const AppRoutes = () => {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/orders"
           element={
@@ -59,6 +63,7 @@ const AppRoutes = () => {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/orders/:id"
           element={
@@ -67,6 +72,7 @@ const AppRoutes = () => {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/profile"
           element={
@@ -76,7 +82,7 @@ const AppRoutes = () => {
           }
         />
 
-        {/* Admin routes — role-guarded */}
+        {/* Admin Routes */}
         <Route
           path="/admin/*"
           element={
@@ -89,7 +95,7 @@ const AppRoutes = () => {
         {/* 404 */}
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </div>
+    </>
   );
 };
 

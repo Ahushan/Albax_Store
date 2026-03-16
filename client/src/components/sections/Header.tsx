@@ -100,11 +100,11 @@ const Header = () => {
             <img
               src={logo}
               alt=""
-              className="object-cover left-[-10px] rotate-[-10deg] scale-140 top-[22px] absolute"
+              className="object-cover -left-2.5 rotate-[-10deg] scale-140 top-[22px] absolute"
             />
           </div>
 
-          <p className="font-bold text-[10px] absolute top-[12px] right-3 text-black uppercase">
+          <p className="font-bold text-[10px] absolute top-3 right-3 text-black uppercase">
             India No.1 <br />
             Wholesale Online Store
           </p>

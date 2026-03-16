@@ -24,12 +24,16 @@ const Slider = ({ BannerData }: BannerPropType) => {
       >
         {BannerData.map((banner, index) => (
           <SwiperSlide key={index}>
-            <div className="relative w-full aspect-16/7 sm:aspect-16/6 md:aspect-16/5 lg:aspect-16/4 overflow-hidden rounded-2xl border border-gray-200/60">
+            <div className="relative w-full aspect-video sm:aspect-16/7 lg:aspect-16/5 overflow-hidden rounded-2xl border border-gray-200/60">
               <img
                 src={banner.path}
                 alt={`Banner ${index}`}
-                className="absolute inset-0 w-full h-full object-cover"
                 loading="lazy"
+                className="
+                  absolute inset-0 w-full h-full
+                  object-cover
+                  lg:object-center
+                "
               />
             </div>
           </SwiperSlide>

@@ -4,7 +4,7 @@ const variantSchema = new mongoose.Schema(
   {
     product: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "DemoProduct",
+      ref: "Product",
       required: true,
       index: true,
     },

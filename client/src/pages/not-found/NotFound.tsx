@@ -10,14 +10,9 @@ const NotFound = () => {
       <Header />
       <div className="min-h-[70vh] flex flex-col items-center justify-center gap-5 px-4">
         <div className="relative">
-          <h1 className="text-[10rem] font-black text-gray-100 leading-none select-none">
+          <h1 className="text-[10rem] font-black text-gray-900 leading-none select-none">
             404
           </h1>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-20 h-20 rounded-full bg-linear-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-2xl shadow-indigo-200">
-              <Search className="w-9 h-9 text-white" />
-            </div>
-          </div>
         </div>
 
         <h2 className="text-2xl font-bold text-gray-800 -mt-8">

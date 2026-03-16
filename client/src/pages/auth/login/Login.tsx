@@ -1,12 +1,14 @@
 import { useForm } from "react-hook-form";
-import { useNavigate, Link, useLocation } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import toast from "react-hot-toast";
+
 import { useAuth } from "@/context/provider/useAuth";
 import api from "@/api/API";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Mail, Lock, LogIn, ArrowRight, Sparkles } from "lucide-react";
+
+import { Mail, Lock, ArrowRight } from "lucide-react";
 
 interface LoginForm {
   email: string;
@@ -20,82 +22,112 @@ const Login = () => {
     formState: { errors, isSubmitting },
   } = useForm<LoginForm>();
 
-  const { setUser } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
-
-  const redirectPath = location.state?.from || "/";
+  const { setUser } = useAuth();
 
   const onSubmit = async (data: LoginForm) => {
     try {
       const res = await api.post("/auth/login", data);
       setUser(res.data.user);
-      toast.success(`Welcome back, ${res.data.user.name}!`);
-      navigate(redirectPath, { replace: true });
+      toast.success("Login successful!");
+      navigate("/");
     } catch (error: any) {
-      toast.error(
-        error?.response?.data?.message ||
-          "Login failed. Please check your credentials.",
-      );
+      toast.error(error?.response?.data?.message || "Login failed");
     }
   };
 
   return (
-    <section className="w-full min-h-screen flex items-center justify-center bg-linear-to-br from-indigo-50 via-white to-purple-50">
-      {/* Decorative background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-indigo-200 rounded-full opacity-30 blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-200 rounded-full opacity-30 blur-3xl" />
-      </div>
+    <section
+      className="min-h-screen flex items-center justify-center px-4"
+      style={{
+        backgroundImage:
+          "url(https://res.cloudinary.com/dnlejaujc/image/upload/v1773636351/register_bg_xywyxg.jpg)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      {/* background overlay */}
+      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
 
-      <Card className="relative max-w-md w-full mx-4 shadow-2xl border-0 bg-white/80 backdrop-blur-sm">
-        <CardHeader className="text-center pb-2">
-          <div className="mx-auto w-14 h-14 rounded-2xl bg-linear-to-br from-indigo-500 to-purple-600 flex items-center justify-center mb-4 shadow-lg shadow-indigo-200">
-            <Sparkles className="w-7 h-7 text-white" />
+      <div className="relative z-10 w-full max-w-4xl flex rounded-2xl overflow-hidden shadow-2xl bg-white/10 backdrop-blur-xl">
+
+        {/* LEFT IMAGE */}
+        <div className="hidden md:flex w-1/2 relative">
+
+          <img
+            src="https://res.cloudinary.com/dnlejaujc/image/upload/v1773637768/register_side_image_zh04ao.jpg"
+            alt="Login"
+            className="w-full h-full object-cover"
+          />
+
+          {/* TEXT OVER IMAGE */}
+          <div className="absolute inset-0 bg-black/40 flex flex-col justify-end p-8 text-white">
+            <h2 className="text-3xl font-bold mb-2">
+              Welcome Back
+            </h2>
+
+            <p className="text-sm text-white/80 max-w-xs tracking-widest">
+              Sign in to your Albax account and continue your seamless
+              shopping experience.
+            </p>
+
           </div>
-          <CardTitle className="text-3xl font-bold bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-            Welcome Back
-          </CardTitle>
-          <p className="text-gray-500 text-sm mt-1">Sign in to your account</p>
-        </CardHeader>
+        </div>
 
-        <CardContent>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-            <div className="space-y-1.5">
-              <label className="text-sm font-medium text-gray-700 flex items-center gap-1.5">
-                <Mail className="w-4 h-4 text-indigo-500" /> Email
+        {/* FORM SIDE */}
+        <div className="w-full md:w-1/2 p-8 text-white">
+          <div className="text-center mb-6">
+            <h2 className="text-2xl font-semibold">
+              Login
+            </h2>
+
+            <p className="text-white/70 text-sm">
+              Welcome back to Albax
+            </p>
+          </div>
+
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="space-y-4"
+          >
+
+            {/* EMAIL */}
+            <div>
+              <label className="text-sm flex items-center gap-2 mb-1">
+                <Mail className="w-4 h-4" />
+                Email
               </label>
+
               <Input
                 type="email"
                 placeholder="you@example.com"
-                className="h-12 bg-gray-50/50 border-gray-200 focus-visible:ring-indigo-500"
-                {...register("email", {
-                  required: "Email is required",
-                  pattern: {
-                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                    message: "Enter a valid email address",
-                  },
-                })}
+                className="bg-white/20 border-white/20 text-white placeholder:text-white/60"
+                {...register("email", { required: "Email is required" })}
               />
+
               {errors.email && (
-                <p className="text-red-500 text-xs mt-1">
+                <p className="text-red-400 text-xs">
                   {errors.email.message}
                 </p>
               )}
             </div>
 
-            <div className="space-y-1.5">
-              <label className="text-sm font-medium text-gray-700 flex items-center gap-1.5">
-                <Lock className="w-4 h-4 text-indigo-500" /> Password
+            {/* PASSWORD */}
+            <div>
+              <label className="text-sm flex items-center gap-2 mb-1">
+                <Lock className="w-4 h-4" />
+                Password
               </label>
+
               <Input
                 type="password"
                 placeholder="••••••••"
-                className="h-12 bg-gray-50/50 border-gray-200 focus-visible:ring-indigo-500"
+                className="bg-white/20 border-white/20 text-white placeholder:text-white/60"
                 {...register("password", { required: "Password is required" })}
               />
+
               {errors.password && (
-                <p className="text-red-500 text-xs mt-1">
+                <p className="text-red-400 text-xs">
                   {errors.password.message}
                 </p>
               )}
@@ -104,38 +136,26 @@ const Login = () => {
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="w-full h-12 bg-linear-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg shadow-indigo-200 transition-all duration-300"
+              className="w-full bg-purple-600 hover:bg-purple-700"
             >
-              {isSubmitting ? (
-                <div className="animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full" />
-              ) : (
-                <>
-                  <LogIn className="w-5 h-5 mr-2" /> Sign In
-                </>
-              )}
+              {isSubmitting ? "Signing in..." : "Login"}
             </Button>
+
           </form>
 
-          <div className="mt-6 text-center space-y-3">
-            <p className="text-sm text-gray-500">
-              Don't have an account?{" "}
-              <Link
-                to="/register"
-                className="text-indigo-600 font-semibold hover:text-indigo-800 transition"
-              >
-                Create one <ArrowRight className="w-3 h-3 inline" />
-              </Link>
-            </p>
-
-            <button
-              onClick={() => navigate("/")}
-              className="text-xs text-gray-400 hover:text-gray-600 transition"
+          <p className="text-sm text-white/70 mt-6 text-center">
+            Don't have an account?{" "}
+            <Link
+              to="/register"
+              className="text-purple-400 font-semibold"
             >
-              Continue as Guest
-            </button>
-          </div>
-        </CardContent>
-      </Card>
+              Create account <ArrowRight className="inline w-3 h-3" />
+            </Link>
+          </p>
+
+        </div>
+
+      </div>
     </section>
   );
 };
